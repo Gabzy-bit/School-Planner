@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StudyGram Planner - Simple</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="top">
+      <h1>StudyGram Planner</h1>
+      <button id="themeBtn" class="btn-ghost">Dark</button>
+    </header>
+
+    <section id="feedView" class="view active">
+      <article class="card stack">
+        <h2>Uploads</h2>
+        <p class="subtle">Upload timetable (pdf/image/text) and notes.</p>
+        <label>Timetable File</label>
+        <input id="timetableFile" type="file" accept=".pdf,.png,.jpg,.jpeg,.txt,.md,.csv" />
+        <button id="saveTimetableBtn" class="btn">Save Timetable Upload</button>
+
+        <label>Notes File</label>
+        <input id="notesFile" type="file" accept=".txt,.md,.csv,.doc,.docx,.pdf" />
+        <label>Or paste notes text</label>
+        <textarea id="notesText" placeholder="Paste your notes here for best flashcard generation..."></textarea>
+        <button id="saveNotesBtn" class="btn">Save Notes + Generate Flashcards</button>
+        <p id="uploadMsg" class="ok"></p>
+      </article>
+
+      <article class="card stack">
+        <h2>New Assignment</h2>
+        <label>Title</label>
+        <input id="taskTitle" type="text" />
+        <label>Description</label>
+        <textarea id="taskDescription"></textarea>
+        <label>Deadline</label>
+        <input id="taskDeadline" type="datetime-local" />
+        <label>Estimated Minutes</label>
+        <input id="taskMinutes" type="number" min="30" step="30" value="120" />
+        <button id="addTaskBtn" class="btn">Add Task</button>
+      </article>
+
+      <article class="card stack">
+        <h2>Smart Planning</h2>
+        <p class="subtle">Combines deadlines + preferences to build your weekly study plan.</p>
+        <button id="planBtn" class="btn">Generate Weekly Plan</button>
+      </article>
+
+      <article class="card stack">
+        <h3>Timetable Uploads</h3>
+        <div id="timetableList" class="stack"></div>
+      </article>
+
+      <article class="card stack">
+        <h3>Tasks</h3>
+        <div id="tasksList" class="stack"></div>
+      </article>
+
+      <article class="card stack">
+        <h3>Study Sessions</h3>
+        <div id="sessionsList" class="stack"></div>
+      </article>
+
+      <article class="card stack">
+        <h3>Reminders</h3>
+        <div id="remindersList" class="stack"></div>
+      </article>
+    </section>
+
+    <section id="cardsView" class="view">
+      <article class="card story" id="storyCard">
+        <div class="dots" id="storyDots"></div>
+        <h2 id="storyQuestion">No flashcards yet</h2>
+        <p id="storyAnswer" class="subtle">Upload or paste notes from Feed first.</p>
+        <div class="row">
+          <button id="prevCardBtn" class="btn-ghost">Prev</button>
+          <button id="revealBtn" class="btn">Reveal</button>
+          <button id="nextCardBtn" class="btn-ghost">Next</button>
+        </div>
+      </article>
+    </section>
+
+    <section id="settingsView" class="view">
+      <article class="card stack">
+        <h2>Cloud Account (Supabase)</h2>
+        <p id="authStatus" class="subtle">Cloud sync is off.</p>
+        <label>Email</label>
+        <input id="authEmail" type="email" placeholder="you@example.com" />
+        <label>Password</label>
+        <input id="authPassword" type="password" placeholder="Minimum 6 characters" />
+        <div class="row">
+          <button id="signUpBtn" class="btn" type="button">Sign Up</button>
+          <button id="signInBtn" class="btn-ghost" type="button">Sign In</button>
+          <button id="signOutBtn" class="btn-ghost" type="button">Sign Out</button>
+        </div>
+        <p id="authMsg" class="ok"></p>
+      </article>
+
+      <article class="card stack">
+        <h2>Study Preferences</h2>
+        <label>Preference</label>
+        <select id="prefLabel">
+          <option value="morning">Morning</option>
+          <option value="afternoon">Afternoon</option>
+          <option value="evening">Evening</option>
+          <option value="custom">Custom</option>
+        </select>
+        <label>Preferred Start</label>
+        <input id="prefStart" type="time" value="18:00" />
+        <label>Preferred End</label>
+        <input id="prefEnd" type="time" value="21:00" />
+        <label>Daily Study Minutes</label>
+        <input id="prefMinutes" type="number" min="30" step="30" value="120" />
+        <button id="savePrefsBtn" class="btn">Save Preferences</button>
+        <p id="prefsMsg" class="ok"></p>
+      </article>
+    </section>
+  </div>
+
+  <nav class="bottom">
+    <button class="tab active" data-view="feedView">Feed</button>
+    <button class="tab" data-view="cardsView">Cards</button>
+    <button class="tab" data-view="settingsView">Settings</button>
+  </nav>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
